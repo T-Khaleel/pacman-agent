@@ -7,8 +7,8 @@
 # For more info, see http://inst.eecs.berkeley.edu/~cs188/sp09/pacman.html
 
 import random, time, util, sys
-import game
-import distance_calculator
+import contest.game
+from contest.distance_calculator import DistanceCalculator
 from contest.capture_agents import CaptureAgent
 from contest.game import Directions
 from contest.util import nearest_point
