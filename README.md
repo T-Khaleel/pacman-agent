@@ -1,4 +1,4 @@
-# Pacman AI Contest Team
+# Pacman AI Contest: Team Tabdeeli
 
 This project is an implementation for the **Pacman AI Contest**, which revolves around developing intelligent agents to compete in a strategic game of Pacman. This README provides an overview of the project, features of the AI agents, and instructions to run and customize the implementation.
 
