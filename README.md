@@ -1,26 +1,80 @@
-# Pacman Agent
+# Pacman AI Contest Team
 
-A template for coding a pacman agent.
+This project is an implementation for the **Pacman AI Contest**, which revolves around developing intelligent agents to compete in a strategic game of Pacman. This README provides an overview of the project, features of the AI agents, and instructions to run and customize the implementation.
 
-## Setting up the environment
-1. Copy or clone the code from this framework to create your Pacman Agent, e.g., `git clone git@github.com:aig-upf/pacman-agent.git`
-2. Go into pacman-agent folder, `cd pacman-agent/`
-3. Run `git submodule update --init --remote` to pull the last pacman-contest
-4. Create a virtual environment, e.g., `python3.8 -m venv venv`
-5. Activate the virtual environment with `source venv/bin/activate`
-6. Go to the pacman-contest folder and install the requirements:
-    - `cd pacman-contest/`
-    - `pip install -r requirements.txt`
-    - `pip install -e .`
+---
 
-## Coding a new agent
-In the root folder do the following:
-1. Create in `my_team.py` a class with the name of your agent that inherits from `CaptureAgent`, e.g. `class ReflexCaptureAgent(CaptureAgent):`
-2. In the new class, override the `def choose_action(self, game_state):` function to return the best next action (check the given source code example).
-3. (Optional) Add any other functions to the class for reasoning / learning and improving your agents decision which could also use other code sources in the same folder.
+## **Overview**
 
-To debug the agent you can run `capture.py` between the `baseline_team` and your current agent:
-1. `cd pacman-contest/src/contest/`
-2. `python capture.py -r baseline_team -b ../../../my_team.py`
+The project implements a team of two specialized AI agents for the game:
 
+1. **OffensiveReflexAgent**: Focuses on scoring points by consuming food and capsules on the opponent's side of the map.
+2. **DefensiveReflexAgent**: Specializes in protecting the team's food and deterring invaders.
 
+These agents utilize advanced strategies like **Monte Carlo simulation**, dynamic feature weighting, and patrol-based decision-making to enhance their gameplay.
+
+The implementation builds upon UC Berkeley's Pacman Projects ([link](http://ai.berkeley.edu/project_overview.html)).
+
+---
+
+## **Features**
+
+### **Offensive Agent**
+The **OffensiveReflexAgent** is designed to:
+- Navigate into enemy territory and consume food and capsules.
+- Use capsules to temporarily disable enemies, allowing safe navigation.
+- Dynamically adjust its strategy based on game state:
+  - **Attack Mode**: Actively seeks food and capsules.
+  - **Return Mode**: Prioritizes returning to the team's side when carrying significant points or facing high risk.
+
+Key Features:
+- **Food Distance**: Calculates the shortest path to the nearest food.
+- **Opponent Avoidance**: Maintains distance from enemies unless they are scared.
+- **Monte Carlo Simulation**:
+  - Simulates multiple future game states to evaluate and choose the best action.
+  - Considers both short-term rewards and long-term consequences.
+
+---
+
+### **Defensive Agent**
+The **DefensiveReflexAgent** is responsible for:
+- Protecting the team's resources and deterring invaders.
+- Chasing and intercepting enemy Pacman in the team's half of the map.
+- Patrolling high-priority areas to proactively prevent theft.
+
+Key Features:
+- **Dynamic Patrols**:
+  - Focuses on areas where food has recently been stolen.
+  - Adjusts patrol routes based on the opponent's behavior and game state.
+- **Enemy Tracking**:
+  - Pursues and intercepts opponents when they invade the team's territory.
+- **Food Protection**:
+  - Prioritizes defending critical food resources, especially when the team has fewer resources remaining.
+
+---
+
+### **Monte Carlo Simulation**
+Monte Carlo simulation is a statistical method used by the **OffensiveReflexAgent** to evaluate potential actions. It works as follows:
+1. **Simulate Game States**: Generate multiple possible outcomes for each action by playing out random sequences of future moves.
+2. **Calculate Rewards**: Evaluate the desirability of each outcome based on features such as points scored, safety, and proximity to key objectives.
+3. **Select the Best Action**: Choose the action with the highest average reward.
+
+This allows the agent to account for uncertainty and make more robust decisions.
+
+---
+
+## **Getting Started**
+
+### **Prerequisites**
+- **Python 3.8**: Ensure you have Python 3.8 installed on your system.
+
+### **Installation**
+1. Clone this repository.
+2. Navigate to the project directory.
+
+---
+
+### **How to Run**
+To run the contest, use the following command:
+```bash
+python capture.py -r my_team -b baselineTeam
